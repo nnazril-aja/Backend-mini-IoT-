@@ -3,7 +3,6 @@
 <head>
     <title>mini IoT</title>
     <style>
-        /* CSS kotak-kotak biasa biar ga ribet */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -88,20 +87,18 @@
     </table>
 
     <script>
-        // 1. Narik data buat ngisi kotak-kotak di atas
+        
         fetch('/api/dashboard/summary')
             .then(function(res) {
                 return res.json();
             })
-            .then(function(data) {
-                // Masukin hasil data API ke teks HTML
+            .then(function(data) {             
                 document.getElementById('total_devices').innerHTML = data.total_devices;
                 document.getElementById('suhu').innerHTML = data.latest_temperature + " °C";
                 document.getElementById('kelembaban').innerHTML = data.latest_humidity + " %";
                 document.getElementById('waktu_update').innerHTML = data.last_update;
             });
 
-        // 2. Narik data buat ngisi baris tabel riwayat
         fetch('/api/sensorReadings')
             .then(function(res) {
                 return res.json();
@@ -110,7 +107,6 @@
                 var listData = respon.data;
                 var barisTabel = '';
 
-                // Pakai perulangan for biasa khas anak sekolahan baru belajar JS
                 for (var i = 0; i < listData.length; i++) {
                     barisTabel += '<tr>';
                     barisTabel += '<td>' + listData[i].created_at + '</td>';
@@ -122,7 +118,6 @@
                     barisTabel += '</tr>';
                 }
 
-                // Ganti tulisan "Memuat data sensor..." jadi baris data asli
                 document.getElementById('tabel-body').innerHTML = barisTabel;
             });
     </script>
